@@ -158,13 +158,6 @@ jobs:
         - name: 📦 Checkout
           uses: actions/checkout@v6.0.2
 
-        - name: 🔒 Check if CURSEFORGE_TOKEN exist
-          shell: bash
-          run: |
-            if [ "${{ secrets.CURSEFORGE_TOKEN }}" == '' ]; then
-              echo '::error::No value found for secret key `CURSEFORGE_TOKEN`. See https://docs.github.com/en/actions/security-guides/  encrypted-secrets#creating-encrypted-secrets-for-a-repository' && exit 1
-            fi  
-
         - name: 📦 Download artifact
           uses: actions/download-artifact@v7.0.0
           with:
@@ -182,18 +175,6 @@ jobs:
         - name: 🚀 Release
           uses: Xikaro/game-publish@3.3.1
           with:
-            modrinth-id: ${{ vars.MODRINTH_ID }}
-            modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-            modrinth-dependencies: |
-              JaCEZUhg(required)
-              7tG215v7(required)
-
-            curseforge-id: ${{ vars.CURSEFORGE_ID }}
-            curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-            curseforge-dependencies: |
-              gregtechceu-modern(required)
-              terrafirmacraft(required)
-
             github-name: ${{ needs.info.outputs.project_version }}
             github-tag: ${{ needs.info.outputs.project_version }}
             github-generate-changelog: true
